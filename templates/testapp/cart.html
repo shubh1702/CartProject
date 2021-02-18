@@ -1,0 +1,39 @@
+{% extends 'testapp/base.html' %}
+{% block script_block %}
+
+<script type="text/javascript">
+
+
+  $(document).ready(function(){
+
+    $('#id_name').change(function() {
+    var itemName = $('#id_name').find(":selected").text();
+
+    request_url = '/get_price/';
+
+    $.ajax({
+      type:"GET",
+      url: request_url,
+      data:{
+                 item_name: itemName
+        },
+      success: function(data){
+      console.log(data)
+      $("#id_price").val(data)
+      $("#id_price").prop("readonly", true);
+
+      }})
+
+    })
+  })
+
+</script>
+{% endblock %}
+{% block child_block %}
+<form method="post">
+{{form.as_p}}
+    {% csrf_token %}
+    <input type="submit" class ="btn btn-success"  value="Add">
+
+</form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'testapp/base.html' %}
+{% block child_block %}
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+          <th>Total Price</th>
+          <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+
+     {% for item in cart_item %}
+     <tr>
+        <td>{{item.name}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.price}}</td>
+        <td>{% widthratio item.price 1 item.quantity %}</td>
+         <td><form action="{% url 'deletedata' item.id %}" method= 'post' class='d-inline'>
+             {% csrf_token %}
+             <input type="submit" class="btn btn-danger" value ="Delete">
+         </form> </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table><hr>
+<strong>Total : {{total}}</strong>
+
+{% endblock %}
